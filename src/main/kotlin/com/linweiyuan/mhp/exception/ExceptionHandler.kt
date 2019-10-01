@@ -11,6 +11,6 @@ class ExceptionController {
     @ExceptionHandler(Throwable::class)
     fun handleException(t: Throwable): Data {
         ExceptionUtil.print(t)
-        return Data(Code.ERR, "系统异常 -> " + t.localizedMessage)
+        return Data(Code.ERR, "系统异常 -> ${t.localizedMessage}")
     }
 }
