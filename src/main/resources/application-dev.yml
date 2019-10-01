@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql/mhp?serverTimezone=Asia/Shanghai
+    username: root
+    password: toor
+  redis:
+    host: redis
+    password: toor
+  rabbitmq:
+    host: rabbitmq
+    username: root
+    password: toor
+    listener:
+      simple:
+        retry:
+          enabled: true
+  mail:
+    host: smtp.google.com
+    username: root
+    password: toor
+    protocol: smtps
+    properties:
+      mail:
+        properties:
+          mail:
+            debug: true
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+jwt:
+  secret: toor
