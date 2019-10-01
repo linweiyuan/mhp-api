@@ -1,5 +1,7 @@
 package com.linweiyuan.mhp.service.impl
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import com.linweiyuan.mhp.common.Constant
 import com.linweiyuan.mhp.entity.User
 import com.linweiyuan.mhp.model.Mail
@@ -69,6 +71,23 @@ class UserServiceImpl : UserService {
         redisUser.regTime = Date()
         userRepository.save(redisUser)
         redis.delete(key)
-        return Data(msg = "验证通过")
+        return login(user)
+    }
+
+    override fun login(user: User): Data {
+        val dbUser = userRepository.findByUsername(user.username)
+        if (dbUser == null || dbUser.password != user.password) {
+            return Data(Code.ERR, "用户名或密码不正确")
+        }
+
+        dbUser.loginTime = Date()
+        userRepository.save(dbUser)
+
+        redis.opsForValue().set(Constant.REDIS_KEY_MHP_USER_USERNAME + user.username, JsonUtil.toJson(user), Constant.JWT_TIMEOUT, TimeUnit.DAYS)
+        val token = JWT.create()
+                .withClaim(Constant.JWT_CLAIM_USERNAME, dbUser.username)
+                .withExpiresAt(Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(Constant.JWT_TIMEOUT)))
+                .sign(Algorithm.HMAC256(jwtSecret))
+        return Data(msg = "登录成功", data = token)
     }
 }

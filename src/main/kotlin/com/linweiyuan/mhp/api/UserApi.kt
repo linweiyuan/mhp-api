@@ -25,4 +25,8 @@ class UserApi {
     @ApiOperation("验证")
     @PostMapping("/validate")
     fun validate(@ApiParam(value = "用户", required = true) @RequestBody user: User) = userService.validate(user)
+
+    @ApiOperation("登录")
+    @PostMapping("/login")
+    fun login(@ApiParam(value = "用户", required = true) @RequestBody user: User) = userService.login(user)
 }
