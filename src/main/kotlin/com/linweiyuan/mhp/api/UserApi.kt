@@ -21,4 +21,8 @@ class UserApi {
     @ApiOperation("注册")
     @PostMapping("/register")
     fun register(@ApiParam(value = "用户", required = true) @RequestBody user: User) = userService.register(user)
+
+    @ApiOperation("验证")
+    @PostMapping("/validate")
+    fun validate(@ApiParam(value = "用户", required = true) @RequestBody user: User) = userService.validate(user)
 }

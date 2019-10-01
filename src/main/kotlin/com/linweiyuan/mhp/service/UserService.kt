@@ -5,4 +5,6 @@ import com.linweiyuan.misc.model.Data
 
 interface UserService {
     fun register(user: User): Data
+
+    fun validate(user: User): Data
 }

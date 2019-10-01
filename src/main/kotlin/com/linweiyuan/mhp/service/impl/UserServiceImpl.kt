@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Service
@@ -53,4 +54,21 @@ class UserServiceImpl : UserService {
      * 简单验证邮箱地址
      */
     private fun checkUsername(username: String?) = username != null && username.contains("@") && !username.startsWith("@") && !username.endsWith("@")
+
+    override fun validate(user: User): Data {
+        val key = "${Constant.REDIS_KEY_MHP_USER_USERNAME}${user.username}"
+        if (!redis.hasKey(key)) {
+            return Data(Code.ERR, "验证码已过期")
+        }
+
+        val redisUser = JsonUtil.fromJson(redis.opsForValue().get(key) as String, User::class)
+        if (redisUser.username != user.username || redisUser.regCode != user.regCode) {
+            return Data(Code.ERR, "验证码不正确")
+        }
+
+        redisUser.regTime = Date()
+        userRepository.save(redisUser)
+        redis.delete(key)
+        return Data(msg = "验证通过")
+    }
 }
