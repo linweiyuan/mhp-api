@@ -10,7 +10,6 @@ object Constant {
     const val JWT_CLAIM_USERNAME = "mhp_user_username"
     const val JWT_TIMEOUT: Long = 7 // 天
 
-    const val CODE_NAME_SUFFIX = "（${MAIL_NICKNAME}）" // 金手指代码名字小尾巴
     const val KEY_OFFSET_4 = 0x00000004
     // 护石
     const val STONE_KEY = 0x2174FE14
@@ -34,4 +33,13 @@ object Constant {
     const val KEY_OFFSET_2 = 0x00000002
     // 任务执行次数
     const val QUEST_NUM_KEY = 0x117A82D0
+    /*
+     * 怪物狩猎记录
+     * 原地址
+     * 0x11754770
+     * 0x117545AE
+     * 这里做特殊处理值-2
+     */
+    const val BOSS_NUM_KILL_KEY = 0x1175476E // 狩猎
+    const val BOSS_NUM_CATCH_KEY = 0x117545AC // 捕获
 }

@@ -44,4 +44,8 @@ class CodeApi {
     @ApiOperation("任务执行次数")
     @PostMapping("/questNum")
     fun questNum(@RequestBody questNum: QuestNum) = codeService.genCode(questNum)
+
+    @ApiOperation("怪物狩猎记录")
+    @PostMapping("/bossNum")
+    fun bossNum(@RequestBody bossNum: BossNum) = codeService.genCode(bossNum)
 }

@@ -11,45 +11,41 @@ import org.springframework.stereotype.Service
 class CodeServiceImpl : CodeService {
     override fun genCode(any: Any): Data {
         lateinit var codeName: String
-        lateinit var msg: String
 
         val codeMap = mutableMapOf<String, String>()
         when (any) {
             is Stone -> {
                 genStoneCode(any, codeMap)
-                codeName = "护石${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成护石代码成功"
+                codeName = "护石"
             }
             is Drink -> {
                 genDrinkCode(any, codeMap)
-                codeName = "饮料技能${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成饮料技能代码成功"
+                codeName = "饮料技能"
             }
             is Player -> {
                 genPlayerCode(any, codeMap)
-                codeName = "玩家信息${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成玩家信息代码成功"
+                codeName = "玩家信息"
             }
             is List<*> -> {
                 @Suppress("UNCHECKED_CAST")
                 genCatCode(any as List<Cat>, codeMap)
-                codeName = "随从猫信息${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成随从猫信息代码成功"
+                codeName = "随从猫信息"
             }
             is Time -> {
                 genTimeCode(any, codeMap)
-                codeName = "游戏时间${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成游戏时间代码成功"
+                codeName = "游戏时间"
             }
             is WeaponNum -> {
                 genWeaponNumCode(any, codeMap)
-                codeName = "武器使用频率${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成武器使用频率代码成功"
+                codeName = "武器使用频率"
             }
             is QuestNum -> {
                 genQuestNumCode(any, codeMap)
-                codeName = "任务执行次数${Constant.CODE_NAME_SUFFIX}"
-                msg = "生成任务执行次数代码成功"
+                codeName = "任务执行次数"
+            }
+            is BossNum -> {
+                genBossNumCode(any, codeMap)
+                codeName = "怪物狩猎记录"
             }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
@@ -133,5 +129,10 @@ class CodeServiceImpl : CodeService {
 
     private fun genQuestNumCode(questNum: QuestNum, codeMap: MutableMap<String, String>) {
         codeMap[(Constant.QUEST_NUM_KEY + questNum.type * Constant.KEY_OFFSET_2).toHex()] = questNum.value.toHex()
+    }
+
+    private fun genBossNumCode(bossNum: BossNum, codeMap: MutableMap<String, String>) {
+        codeMap[(Constant.BOSS_NUM_KILL_KEY + Integer.parseInt(bossNum.gameId, 16) * Constant.KEY_OFFSET_2).toHex()] = bossNum.killNum.toHex()
+        codeMap[(Constant.BOSS_NUM_CATCH_KEY + Integer.parseInt(bossNum.gameId, 16) * Constant.KEY_OFFSET_2).toHex()] = bossNum.catchNum.toHex()
     }
 }
