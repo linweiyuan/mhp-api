@@ -21,4 +21,9 @@ object Constant {
     const val PLAYER_NAME_KEY = 0x2174FCAC // 名字
     const val PLAYER_CARD_KEY = 0x217A8280 // 工会卡片名字
     const val PLAYER_CARD_INTRO_KEY = 0x217A82E0 // 工会卡片介绍
+    // 随从猫信息
+    const val CAT_NAME_KEY = 0x217ACF44 // 名字
+    const val CAT_OWNER_KEY = 0x217ACF7C // 主人名字
+    const val CAT_INTRO_KEY = 0x217ACF5E // 介绍
+    const val KEY_OFFSET_CAT = 0x000000A0 // 偏移
 }

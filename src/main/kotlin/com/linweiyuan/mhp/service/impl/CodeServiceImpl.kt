@@ -2,6 +2,7 @@ package com.linweiyuan.mhp.service.impl
 
 import com.linweiyuan.mhp.common.Constant
 import com.linweiyuan.mhp.common.toHex
+import com.linweiyuan.mhp.model.Cat
 import com.linweiyuan.mhp.model.Drink
 import com.linweiyuan.mhp.model.Player
 import com.linweiyuan.mhp.model.Stone
@@ -31,6 +32,12 @@ class CodeServiceImpl : CodeService {
                 genPlayerCode(any, codeMap)
                 codeName = "玩家信息${Constant.CODE_NAME_SUFFIX}"
                 msg = "生成玩家信息代码成功"
+            }
+            is List<*> -> {
+                @Suppress("UNCHECKED_CAST")
+                genCatCode(any as List<Cat>, codeMap)
+                codeName = "随从猫信息${Constant.CODE_NAME_SUFFIX}"
+                msg = "生成随从猫信息代码成功"
             }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
@@ -87,5 +94,14 @@ class CodeServiceImpl : CodeService {
             i++
         }
         return textCode
+    }
+
+    private fun genCatCode(cats: List<Cat>, codeMap: MutableMap<String, String>) {
+        for (i in cats.indices) {
+            val (name, owner, intro) = cats[i]
+            codeMap.putAll(genTextCode(Constant.CAT_NAME_KEY + Constant.KEY_OFFSET_CAT * i, name))
+            codeMap.putAll(genTextCode(Constant.CAT_OWNER_KEY + Constant.KEY_OFFSET_CAT * i, owner))
+            codeMap.putAll(genTextCode(Constant.CAT_INTRO_KEY + Constant.KEY_OFFSET_CAT * i, intro))
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.linweiyuan.mhp.api
 
+import com.linweiyuan.mhp.model.Cat
 import com.linweiyuan.mhp.model.Drink
 import com.linweiyuan.mhp.model.Player
 import com.linweiyuan.mhp.model.Stone
@@ -30,4 +31,8 @@ class CodeApi {
     @ApiOperation("玩家信息")
     @PostMapping("/player")
     fun player(@RequestBody player: Player) = codeService.genCode(player)
+
+    @ApiOperation("随从猫信息")
+    @PostMapping("/cat")
+    fun cat(@RequestBody cats: List<Cat>) = codeService.genCode(cats)
 }
