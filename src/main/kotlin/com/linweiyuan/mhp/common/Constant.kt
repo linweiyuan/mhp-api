@@ -17,4 +17,8 @@ object Constant {
     const val STONE_VALUE = 0x79DF6501
     // 饮料技能
     const val DRINK_KEY = 0x217AC8F0 // default val 0x00000000
+    // 玩家信息
+    const val PLAYER_NAME_KEY = 0x2174FCAC // 名字
+    const val PLAYER_CARD_KEY = 0x217A8280 // 工会卡片名字
+    const val PLAYER_CARD_INTRO_KEY = 0x217A82E0 // 工会卡片介绍
 }
