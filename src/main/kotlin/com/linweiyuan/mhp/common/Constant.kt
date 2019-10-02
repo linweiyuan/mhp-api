@@ -32,4 +32,6 @@ object Constant {
     const val WEAPON_PLACE_KEY_1 = 0x217A86C0 // 村长、集会
     const val WEAPON_PLACE_KEY_2 = 0x217A86DA // 训练所
     const val KEY_OFFSET_2 = 0x00000002
+    // 任务执行次数
+    const val QUEST_NUM_KEY = 0x117A82D0
 }

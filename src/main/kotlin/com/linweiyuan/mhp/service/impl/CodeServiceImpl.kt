@@ -41,10 +41,15 @@ class CodeServiceImpl : CodeService {
                 codeName = "游戏时间${Constant.CODE_NAME_SUFFIX}"
                 msg = "生成游戏时间代码成功"
             }
-            is WeaponFrequency -> {
-                genWeaponFrequencyCode(any, codeMap)
+            is WeaponNum -> {
+                genWeaponNumCode(any, codeMap)
                 codeName = "武器使用频率${Constant.CODE_NAME_SUFFIX}"
                 msg = "生成武器使用频率代码成功"
+            }
+            is QuestNum -> {
+                genQuestNumCode(any, codeMap)
+                codeName = "任务执行次数${Constant.CODE_NAME_SUFFIX}"
+                msg = "生成任务执行次数代码成功"
             }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
@@ -117,12 +122,16 @@ class CodeServiceImpl : CodeService {
     }
 
 
-    private fun genWeaponFrequencyCode(weaponFrequency: WeaponFrequency, codeMap: MutableMap<String, String>) {
+    private fun genWeaponNumCode(weaponNum: WeaponNum, codeMap: MutableMap<String, String>) {
         // manual fix
-        if (weaponFrequency.type >= 5) {
-            weaponFrequency.type = (weaponFrequency.type + 1).toByte()
+        if (weaponNum.type >= 5) {
+            weaponNum.type = (weaponNum.type + 1).toByte()
         }
-        val key = if (weaponFrequency.place.toInt() == 0) Constant.WEAPON_PLACE_KEY_1 else Constant.WEAPON_PLACE_KEY_2
-        codeMap[(key + weaponFrequency.type * Constant.KEY_OFFSET_2).toHex()] = weaponFrequency.value.toHex()
+        val key = if (weaponNum.place.toInt() == 0) Constant.WEAPON_PLACE_KEY_1 else Constant.WEAPON_PLACE_KEY_2
+        codeMap[(key + weaponNum.type * Constant.KEY_OFFSET_2).toHex()] = weaponNum.value.toHex()
+    }
+
+    private fun genQuestNumCode(questNum: QuestNum, codeMap: MutableMap<String, String>) {
+        codeMap[(Constant.QUEST_NUM_KEY + questNum.type * Constant.KEY_OFFSET_2).toHex()] = questNum.value.toHex()
     }
 }
