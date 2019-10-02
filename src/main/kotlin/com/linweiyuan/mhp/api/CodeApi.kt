@@ -1,5 +1,6 @@
 package com.linweiyuan.mhp.api
 
+import com.linweiyuan.mhp.model.Drink
 import com.linweiyuan.mhp.model.Stone
 import com.linweiyuan.mhp.service.CodeService
 import io.swagger.annotations.Api
@@ -20,4 +21,8 @@ class CodeApi {
     @ApiOperation("护石")
     @PostMapping("/stone")
     fun stone(@RequestBody stone: Stone) = codeService.genCode(stone)
+
+    @ApiOperation("饮料技能")
+    @PostMapping("/drink")
+    fun drink(@RequestBody drink: Drink) = codeService.genCode(drink)
 }

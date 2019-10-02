@@ -2,6 +2,7 @@ package com.linweiyuan.mhp.service.impl
 
 import com.linweiyuan.mhp.common.Constant
 import com.linweiyuan.mhp.common.toHex
+import com.linweiyuan.mhp.model.Drink
 import com.linweiyuan.mhp.model.Stone
 import com.linweiyuan.mhp.service.CodeService
 import com.linweiyuan.misc.model.Data
@@ -20,6 +21,11 @@ class CodeServiceImpl : CodeService {
                 codeName = "护石${Constant.CODE_NAME_SUFFIX}"
                 msg = "生成护石代码成功"
             }
+            is Drink -> {
+                genDrinkCode(any, codeMap)
+                codeName = "饮料技能${Constant.CODE_NAME_SUFFIX}"
+                msg = "生成饮料技能代码成功"
+            }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
         for ((k, v) in codeMap) {
@@ -31,5 +37,10 @@ class CodeServiceImpl : CodeService {
     private fun genStoneCode(stone: Stone, codeMap: MutableMap<Number, Number>) {
         codeMap[Constant.STONE_KEY] = Constant.STONE_VALUE + 0x00010000 * stone.rarity + 0x00100000 * stone.point1 + 0x04000000 * stone.point2
         codeMap[Constant.STONE_KEY + Constant.KEY_OFFSET_4] = 0x00000001 * stone.skill1 + 0x00000080 * stone.skill2 + 0x00004000 * stone.slot
+    }
+
+    private fun genDrinkCode(drink: Drink, codeMap: MutableMap<Number, Number>) {
+        codeMap[Constant.DRINK_KEY] = 0x01000000 * drink.skill4 + 0x00010000 * drink.skill3 + 0x00000100 * drink.skill2 + 0x00000001 * drink.skill1
+        codeMap[Constant.DRINK_KEY + Constant.KEY_OFFSET_4] = drink.skill5
     }
 }

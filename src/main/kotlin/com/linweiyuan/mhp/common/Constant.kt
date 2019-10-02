@@ -15,4 +15,6 @@ object Constant {
     // 护石
     const val STONE_KEY = 0x2174FE14
     const val STONE_VALUE = 0x79DF6501
+    // 饮料技能
+    const val DRINK_KEY = 0x217AC8F0 // default val 0x00000000
 }
