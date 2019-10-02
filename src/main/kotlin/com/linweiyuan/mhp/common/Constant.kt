@@ -26,4 +26,6 @@ object Constant {
     const val CAT_OWNER_KEY = 0x217ACF7C // 主人名字
     const val CAT_INTRO_KEY = 0x217ACF5E // 介绍
     const val KEY_OFFSET_CAT = 0x000000A0 // 偏移
+    // 游戏时间
+    const val TIME_KEY = 0x21754544
 }

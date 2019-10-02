@@ -1,9 +1,6 @@
 package com.linweiyuan.mhp.api
 
-import com.linweiyuan.mhp.model.Cat
-import com.linweiyuan.mhp.model.Drink
-import com.linweiyuan.mhp.model.Player
-import com.linweiyuan.mhp.model.Stone
+import com.linweiyuan.mhp.model.*
 import com.linweiyuan.mhp.service.CodeService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -35,4 +32,8 @@ class CodeApi {
     @ApiOperation("随从猫信息")
     @PostMapping("/cat")
     fun cat(@RequestBody cats: List<Cat>) = codeService.genCode(cats)
+
+    @ApiOperation("游戏时间")
+    @PostMapping("/time")
+    fun time(@RequestBody time: Time) = codeService.genCode(time)
 }

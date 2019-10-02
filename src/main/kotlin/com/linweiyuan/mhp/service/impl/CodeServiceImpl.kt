@@ -2,10 +2,7 @@ package com.linweiyuan.mhp.service.impl
 
 import com.linweiyuan.mhp.common.Constant
 import com.linweiyuan.mhp.common.toHex
-import com.linweiyuan.mhp.model.Cat
-import com.linweiyuan.mhp.model.Drink
-import com.linweiyuan.mhp.model.Player
-import com.linweiyuan.mhp.model.Stone
+import com.linweiyuan.mhp.model.*
 import com.linweiyuan.mhp.service.CodeService
 import com.linweiyuan.misc.model.Data
 import org.springframework.stereotype.Service
@@ -38,6 +35,11 @@ class CodeServiceImpl : CodeService {
                 genCatCode(any as List<Cat>, codeMap)
                 codeName = "随从猫信息${Constant.CODE_NAME_SUFFIX}"
                 msg = "生成随从猫信息代码成功"
+            }
+            is Time -> {
+                genTimeCode(any, codeMap)
+                codeName = "游戏时间${Constant.CODE_NAME_SUFFIX}"
+                msg = "生成游戏时间代码成功"
             }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
@@ -103,5 +105,9 @@ class CodeServiceImpl : CodeService {
             codeMap.putAll(genTextCode(Constant.CAT_OWNER_KEY + Constant.KEY_OFFSET_CAT * i, owner))
             codeMap.putAll(genTextCode(Constant.CAT_INTRO_KEY + Constant.KEY_OFFSET_CAT * i, intro))
         }
+    }
+
+    private fun genTimeCode(time: Time, codeMap: MutableMap<String, String>) {
+        codeMap[(Constant.TIME_KEY).toHex()] = (time.hour * 60 * 60 + time.minute * 60).toHex() // 总秒数
     }
 }
