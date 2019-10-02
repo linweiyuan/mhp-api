@@ -10,7 +10,7 @@ object Constant {
     const val JWT_CLAIM_USERNAME = "mhp_user_username"
     const val JWT_TIMEOUT: Long = 7 // 天
 
-    const val KEY_OFFSET_4 = 0x00000004
+    const val KEY_OFFSET_4: Byte = 0x00000004
     // 护石
     const val STONE_KEY = 0x2174FE14
     const val STONE_VALUE = 0x79DF6501
@@ -30,7 +30,7 @@ object Constant {
     // 武器使用频率
     const val WEAPON_PLACE_KEY_1 = 0x217A86C0 // 村长、集会
     const val WEAPON_PLACE_KEY_2 = 0x217A86DA // 训练所
-    const val KEY_OFFSET_2 = 0x00000002
+    const val KEY_OFFSET_2: Byte = 0x00000002
     // 任务执行次数
     const val QUEST_NUM_KEY = 0x117A82D0
     /*
@@ -42,4 +42,6 @@ object Constant {
      */
     const val BOSS_NUM_KILL_KEY = 0x1175476E // 狩猎
     const val BOSS_NUM_CATCH_KEY = 0x117545AC // 捕获
+    // 自制任务
+    const val QUEST_KEY = 0x2117EA00 // HD
 }
