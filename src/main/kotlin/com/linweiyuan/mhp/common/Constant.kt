@@ -9,4 +9,10 @@ object Constant {
 
     const val JWT_CLAIM_USERNAME = "mhp_user_username"
     const val JWT_TIMEOUT: Long = 7 // 天
+
+    const val CODE_NAME_SUFFIX = "（${MAIL_NICKNAME}）" // 金手指代码名字小尾巴
+    const val KEY_OFFSET_4 = 0x00000004
+    // 护石
+    const val STONE_KEY = 0x2174FE14
+    const val STONE_VALUE = 0x79DF6501
 }
