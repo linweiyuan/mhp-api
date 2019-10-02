@@ -2,7 +2,7 @@ package com.linweiyuan.mhp.common
 
 object Constant {
     const val REDIS_KEY_MHP_USER_USERNAME = "mhp_user_username:"
-    const val REG_CODE_TIMEOUT = 5L // 验证码有效时间（分钟）
+    const val REG_CODE_TIMEOUT: Long = 5 // 验证码有效时间（分钟）
 
     const val MQ_QUEUE_MAIL = "mhp-mail"
     const val MAIL_NICKNAME = "怪物猎人金手指"
@@ -28,4 +28,8 @@ object Constant {
     const val KEY_OFFSET_CAT = 0x000000A0 // 偏移
     // 游戏时间
     const val TIME_KEY = 0x21754544
+    // 武器使用频率
+    const val WEAPON_PLACE_KEY_1 = 0x217A86C0 // 村长、集会
+    const val WEAPON_PLACE_KEY_2 = 0x217A86DA // 训练所
+    const val KEY_OFFSET_2 = 0x00000002
 }

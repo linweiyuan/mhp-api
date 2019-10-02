@@ -41,6 +41,11 @@ class CodeServiceImpl : CodeService {
                 codeName = "游戏时间${Constant.CODE_NAME_SUFFIX}"
                 msg = "生成游戏时间代码成功"
             }
+            is WeaponFrequency -> {
+                genWeaponFrequencyCode(any, codeMap)
+                codeName = "武器使用频率${Constant.CODE_NAME_SUFFIX}"
+                msg = "生成武器使用频率代码成功"
+            }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
         for ((k, v) in codeMap) {
@@ -109,5 +114,15 @@ class CodeServiceImpl : CodeService {
 
     private fun genTimeCode(time: Time, codeMap: MutableMap<String, String>) {
         codeMap[(Constant.TIME_KEY).toHex()] = (time.hour * 60 * 60 + time.minute * 60).toHex() // 总秒数
+    }
+
+
+    private fun genWeaponFrequencyCode(weaponFrequency: WeaponFrequency, codeMap: MutableMap<String, String>) {
+        // manual fix
+        if (weaponFrequency.type >= 5) {
+            weaponFrequency.type = (weaponFrequency.type + 1).toByte()
+        }
+        val key = if (weaponFrequency.place.toInt() == 0) Constant.WEAPON_PLACE_KEY_1 else Constant.WEAPON_PLACE_KEY_2
+        codeMap[(key + weaponFrequency.type * Constant.KEY_OFFSET_2).toHex()] = weaponFrequency.value.toHex()
     }
 }

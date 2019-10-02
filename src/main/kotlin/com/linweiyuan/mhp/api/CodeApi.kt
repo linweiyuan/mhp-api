@@ -36,4 +36,8 @@ class CodeApi {
     @ApiOperation("游戏时间")
     @PostMapping("/time")
     fun time(@RequestBody time: Time) = codeService.genCode(time)
+
+    @ApiOperation("武器使用频率")
+    @PostMapping("/weaponFrequency")
+    fun weaponFrequency(@RequestBody weaponFrequency: WeaponFrequency) = codeService.genCode(weaponFrequency)
 }
