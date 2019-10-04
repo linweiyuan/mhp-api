@@ -9,7 +9,7 @@ data class User(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @JsonIgnore
-        val id: Byte,
+        val id: Int,
         val username: String,
         val password: String,
         @JsonIgnore
