@@ -20,13 +20,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @EnableSwagger2
 class SwaggerConfig {
     @Bean
-    fun createRestApi() = Docket(DocumentationType.SWAGGER_2)
-            .apiInfo(ApiInfoBuilder().title("怪物猎人金手指API（3rd HD ver.）").contact(Contact("linweiyuan", "http://www.linweiyuan.com", "root@linweiyuan.com")).build())
-            .useDefaultResponseMessages(false)
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("com.linweiyuan.mhp.api"))
-            .build()
-            //全局Authorization请求头
-            .securitySchemes(arrayListOf(ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, "header")))
-            .securityContexts(arrayListOf(SecurityContext.builder().securityReferences(arrayListOf(SecurityReference(HttpHeaders.AUTHORIZATION, arrayOf<AuthorizationScope>()))).build()))
+    fun createRestApi(): Docket = Docket(DocumentationType.SWAGGER_2)
+        .apiInfo(ApiInfoBuilder().title("怪物猎人金手指API（3rd HD ver.）").contact(Contact("linweiyuan", "http://www.linweiyuan.com", "root@linweiyuan.com")).build())
+        .useDefaultResponseMessages(false)
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.linweiyuan.mhp.api"))
+        .build()
+        //全局Authorization请求头
+        .securitySchemes(arrayListOf(ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, "header")))
+        .securityContexts(arrayListOf(SecurityContext.builder().securityReferences(arrayListOf(SecurityReference(HttpHeaders.AUTHORIZATION, arrayOf<AuthorizationScope>()))).build()))
 }

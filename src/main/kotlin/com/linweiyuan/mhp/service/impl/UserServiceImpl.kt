@@ -85,9 +85,9 @@ class UserServiceImpl : UserService {
 
         redis.opsForValue().set("${Constant.REDIS_KEY_MHP_USER_USERNAME}${user.username}", JsonUtil.toJson(user), Constant.JWT_TIMEOUT, TimeUnit.DAYS)
         val token = JWT.create()
-                .withClaim(Constant.JWT_CLAIM_USERNAME, dbUser.username)
-                .withExpiresAt(Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(Constant.JWT_TIMEOUT)))
-                .sign(Algorithm.HMAC256(jwtSecret))
+            .withClaim(Constant.JWT_CLAIM_USERNAME, dbUser.username)
+            .withExpiresAt(Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(Constant.JWT_TIMEOUT)))
+            .sign(Algorithm.HMAC256(jwtSecret))
         return Data(msg = "登录成功", data = token)
     }
 }

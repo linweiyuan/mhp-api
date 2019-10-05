@@ -6,16 +6,16 @@ import javax.persistence.*
 
 @Entity
 data class User(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @JsonIgnore
-        val id: Int,
-        val username: String,
-        val password: String,
-        @JsonIgnore
-        var regTime: Date?,
-        @JsonIgnore
-        var loginTime: Date?,
-        @Transient
-        var regCode: String?
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    val id: Int,
+    val username: String,
+    val password: String,
+    @JsonIgnore
+    var regTime: Date?,
+    @JsonIgnore
+    var loginTime: Date?,
+    @Transient
+    var regCode: String?
 )

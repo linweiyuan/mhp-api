@@ -58,7 +58,7 @@ class CodeServiceImpl : CodeService {
             }
         }
         val code = StringBuilder("_C0 ${codeName}\n") // _C0:disable(default), _C1:enable
-        for ((k, v) in codeMap) {
+        codeMap.mapValues { (k, v) ->
             code.append("_L 0x$k 0x$v\n")
         }
         return Data(msg = "生成${codeName}成功", data = code)
@@ -508,16 +508,16 @@ class CodeServiceImpl : CodeService {
             offset.set(offset.get() + 0x40)
         } else {
             bosses.stream()
-                    .filter { boss -> boss.round == round.toByte() }
-                    .forEach { (gameId, status, num, area) ->
-                        codeMap[(QUEST_KEY + offset.get()).toHex()] = status.toHex(4) + gameId
-                        codeMap[(QUEST_KEY + offset.get() + Constant.KEY_OFFSET_4).toHex()] = getAreaId((quest.basic.map + 1).toHex(2), area.toHex(4)) + num.toHex(4)
-                        codeMap[(QUEST_KEY + offset.get() + 0x0C).toHex()] = "00006AE8"
-                        codeMap[(QUEST_KEY + offset.get() + 0x10).toHex()] = "C49D699A"
-                        codeMap[(QUEST_KEY + offset.get() + 0x14).toHex()] = "00000000"
-                        codeMap[(QUEST_KEY + offset.get() + 0x18).toHex()] = "4301E666"
-                        offset.set(offset.get() + 0x30)
-                    }
+                .filter { boss -> boss.round == round.toByte() }
+                .forEach { (gameId, status, num, area) ->
+                    codeMap[(QUEST_KEY + offset.get()).toHex()] = status.toHex(4) + gameId
+                    codeMap[(QUEST_KEY + offset.get() + Constant.KEY_OFFSET_4).toHex()] = getAreaId((quest.basic.map + 1).toHex(2), area.toHex(4)) + num.toHex(4)
+                    codeMap[(QUEST_KEY + offset.get() + 0x0C).toHex()] = "00006AE8"
+                    codeMap[(QUEST_KEY + offset.get() + 0x10).toHex()] = "C49D699A"
+                    codeMap[(QUEST_KEY + offset.get() + 0x14).toHex()] = "00000000"
+                    codeMap[(QUEST_KEY + offset.get() + 0x18).toHex()] = "4301E666"
+                    offset.set(offset.get() + 0x30)
+                }
         }
         val tmpBossList = bosses.stream().filter { boss -> boss.round == round.toByte() }.collect(Collectors.toList<Boss>())
         if (tmpBossList.isNotEmpty()) {

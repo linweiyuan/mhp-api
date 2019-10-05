@@ -24,11 +24,12 @@ class AuthInterceptor(private val redis: StringRedisTemplate) : HandlerIntercept
         val uri = request.requestURI
         // swagger-ui
         if (uri.endsWith("swagger-ui.html")
-                || uri.contains("webjars")
-                || uri.contains("swagger-resources")
-                || uri.endsWith("/")
-                || uri.endsWith("csrf")
-                || uri.endsWith("error")) {
+            || uri.contains("webjars")
+            || uri.contains("swagger-resources")
+            || uri.endsWith("/")
+            || uri.endsWith("csrf")
+            || uri.endsWith("error")
+        ) {
             return true
         }
 
